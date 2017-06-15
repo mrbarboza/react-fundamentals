@@ -4,12 +4,34 @@ var Link = require('react-router-dom').Link;
 var PropTypes = require('prop-types');
 
 var api = require('../utils/api');
+var PlayerPreview = require('./PlayerPreview');
+
+function Profile(props) {
+  return (
+    <PlayerPreview avatar={ props.info.avatar_url } username = { props.info.login }>
+      <ul className='space-list-items'>
+        { props.info.name && <li>{ props.info.name }</li> }
+        { props.info.location && <li>{ props.info.location }</li> }
+        { props.info.company && <li>{ props.info.companey }</li> }
+        <li>Followers: { props.info.followers }</li>
+        <li>Following: { props.info.Following }</li>
+        <li>Public Repos: { props.info.public_repos }</li>
+        { props.info.blog && <li><a href={ props.info.blog }>{ props.info.blog }</a></li>}
+      </ul>
+    </PlayerPreview>
+  )
+}
+
+Profile.propTypes = {
+  info: PropTypes.object.isRequired
+}
 
 function Player(props) {
   return (
     <div className='column'>
       <h1 className='header'>{ props.label }</h1>
       <h2 style={{textAlign: 'center'}}>Score: { props.score }</h2>
+      <Profile info={ props.profile } />
     </div>
   )
 }
